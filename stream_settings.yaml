@@ -1,0 +1,59 @@
+defaults: &defaults
+
+  image_settings: &image_defaults
+    img_shape: [96, 96, 3]
+    labels: [Class_1, Class_2, Class_3]
+
+  serial_port_settings: &serial_port_defaults
+    serial_port: COM3
+    baud_rate: 115200
+
+  visualization_settings: &visualization_defaults
+    labels_offset: [10, 30]
+    latency_offset: [10, 30]
+    rectangle_thickness: -1
+    text_color: [0, 0, 0]
+    text_thickness: 2
+    font_size: 0.8
+    display_imgs: both
+    zoom_factor: 10
+    color_type: max
+    std_box_color: [255, 0, 0]
+    pred_box_color: [0, 255, 0]
+    latency_box_color: [255, 255, 255]
+    box_shape: [500, 20, 30]
+
+  prediction_settings: &prediction_defaults
+    latency_from_ser: true
+    display_latency: true
+    percent_out: true
+    use_unknown_class: false
+    confidence: null
+
+
+configurations:
+
+  - name: config1
+    <<: *defaults
+
+  - name: config2
+    <<: *defaults
+    visualization_settings:
+      <<: *visualization_defaults
+      color_type: uniform
+      std_box_color: [0, 255, 127.5]
+    prediction_settings:
+      <<: *prediction_defaults
+      percent_out: false
+      display_latency: false
+
+  - name: config3
+    <<: *defaults
+    visualization_settings:
+      <<: *visualization_defaults
+      std_box_color: [0, 0, 255]
+      pred_box_color: [255, 127.5, 0]
+    prediction_settings:
+      <<: *prediction_defaults
+      use_unknown_class: true
+      confidence: 0.6
